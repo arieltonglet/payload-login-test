@@ -1,12 +1,12 @@
 "use client";
-import React, { FormEvent, useRef } from "react";
-import { logIn } from "../graphql";
+import React, { FormEvent, MouseEventHandler, useRef } from "react";
+import { logIn, logOut } from "../graphql";
 
 type Props = {
-  checkUser: () => void;
+  callback: Function;
 };
 
-const Login: React.FC<Props> = ({ checkUser }) => {
+const Login: React.FC<Props> = ({ callback }) => {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
@@ -19,21 +19,23 @@ const Login: React.FC<Props> = ({ checkUser }) => {
 
     const user = await logIn(email, password);
     console.log("logged user: ", user);
-    checkUser();
+    callback();
   };
 
   return (
-    <div>
-      <form onSubmit={handleLogin}>
-        <label>
-          email <input ref={emailRef} type="text" />
-        </label>
-        <label>
-          password <input ref={passwordRef} type="text" />
-        </label>
-        <button formAction="submit">ok</button>
-      </form>
-    </div>
+    <>
+      <div>
+        <form onSubmit={handleLogin}>
+          <label>
+            email <input ref={emailRef} type="text" />
+          </label>
+          <label>
+            password <input ref={passwordRef} type="text" />
+          </label>
+          <button formAction="submit">ok</button>
+        </form>
+      </div>
+    </>
   );
 };
 

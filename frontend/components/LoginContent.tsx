@@ -10,6 +10,7 @@ type Props = {
 
 const LoginContent: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+
   const checkUser = async () => {
     const user = await fetchMe();
     setUser(user);
@@ -21,7 +22,7 @@ const LoginContent: React.FC<Props> = ({ children }) => {
   }, []);
 
   if (!user) {
-    return <Login checkUser={checkUser} />;
+    return <Login callback={() => checkUser()} />;
   }
 
   return children;
