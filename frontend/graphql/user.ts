@@ -19,3 +19,9 @@ mutation Login($email: String, $password: String) {
   }
 }
 `;
+
+export const LOGOUT = `
+mutation {
+  logoutUser
+}
+`;
